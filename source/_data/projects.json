@@ -1,0 +1,25 @@
+[
+	{
+		"name": "Lion",
+		"url": "http://portal.ifrn.edu.br/campus/apodi/sistema-de-reservas",
+		"desc": "Gerenciador de reservas do IFRN Apodi"
+	},	
+	{
+		"name": "FastHelp",
+		"url": "http://fasthelp.nutag.info",
+		"desc": "Sistema para registro de ocorrências"
+	},	
+	{
+		"name": "Atom Player",
+		"url": "http://www.atomplayer.com.br",
+		"desc": "Agregador de podcasts"
+	},
+	{
+		"name": "SRGCCSA",
+		"desc": "Sistema para Registro de Atividades do CCSA/UFRN"
+	},
+	{
+		"name": "Manual do Aluno",
+		"desc": "Aplicação Android do CCSA/UFRN"
+	}
+]
