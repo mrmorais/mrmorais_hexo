@@ -1,25 +1,34 @@
 [
 	{
-		"name": "Lion",
+		"name": "Lion [2015]",
 		"url": "http://portal.ifrn.edu.br/campus/apodi/sistema-de-reservas",
 		"desc": "Gerenciador de reservas do IFRN Apodi"
 	},	
 	{
-		"name": "FastHelp",
+		"name": "FastHelp [2015]",
 		"url": "http://fasthelp.nutag.info",
 		"desc": "Sistema para registro de ocorrências"
 	},	
 	{
-		"name": "Atom Player",
+		"name": "Atom Player [2015]",
 		"url": "http://www.atomplayer.com.br",
 		"desc": "Agregador de podcasts"
 	},
 	{
-		"name": "SRGCCSA",
+		"name": "SRGCCSA [2016]",
 		"desc": "Sistema para Registro de Atividades do CCSA/UFRN"
 	},
 	{
-		"name": "Manual do Aluno",
+		"name": "Manual do Aluno [2017]",
 		"desc": "Aplicação Android do CCSA/UFRN"
+	},
+	{
+		"name": "Sigeva [2017]",
+		"desc": "Plataforma de suporte à eventos acadêmicos do CCSA/UFRN",
+		"url": "http://sigeva.ccsa.ufrn.br"
+	},
+	{
+		"name": "Directa [2018]",
+		"desc": "Aplicativo mobile do sistema Directa da Secretaria de Tributação do Natal"
 	}
 ]

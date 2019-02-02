@@ -1,8 +1,8 @@
 nav:
   Home: /
   About: /about/
-  Writing: /archives/
-  Projects: http://github.com/mrmorais
+  Artigos: /archives/
+  Projetos: http://github.com/mrmorais
 
 projects_url: http://github.com/mrmorais
 
@@ -28,8 +28,7 @@ customize:
         gravator: false
     social_links:
         github: http://github.com/mrmorais
-        twitter: http://twitter.com/MoraisMaradona
-        facebook: http://fb.me/maradona.morais.42
+        twitter: http://twitter.com/maradona_
     post_count: 5
     highlight: rainbow
 

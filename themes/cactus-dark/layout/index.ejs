@@ -4,7 +4,6 @@
   <% } %>
   <p style="display: inline">
     <% if (theme.customize.social_links) { %>
-      <img src="/images/clouds_made_of.jpg" width="500" /> <br><br>
       Find me on
       <ul id="sociallinks">
         <% for(var i in theme.customize.social_links) { %>
@@ -16,7 +15,7 @@
 </section>
 
 <section id="writing">
-  <span class="h1"><a href="<%- url_for("archives") %>">Writing</a></span>
+  <span class="h1"><a href="<%- url_for("archives") %>">Artigos</a></span>
   <ul class="post-list">
     <% site.posts.sort('date', 'desc').limit(theme.customize.post_count || 5).each(function(post, i){ %>
       <li class="post-item">
@@ -29,7 +28,7 @@
 
 <% if (site.data.projects) { %>
 <section id="projects">
-  <span class="h1"><a href="<%- url_for(theme.projects_url) %>">Projects</a></span>
+  <span class="h1"><a href="<%- url_for(theme.projects_url) %>">Projetos</a></span>
   <ul class="project-list">
     <% for(var obj in site.data.projects){ %>
       <li class="project-item">
