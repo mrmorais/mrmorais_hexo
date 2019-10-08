@@ -4,7 +4,10 @@ date: 2017-03-23 22:15:20
 tags: [ES6, Node.JS]
 ---
 
-No [artigo anterior](http://goo.gl/8FrA5d) comentei que a aplicação que estamos desenvolvendo depende de um ambiente que deve ser setado para que todos os módulos sejam importados e que os interpretadores entendam o código que estamos passando.
+# ECMAScript 6 e como usar
+23 de março de 2017
+
+No [artigo anterior](/Aplicacao-real-time-com-socket-io-pt-1/) comentei que a aplicação que estamos desenvolvendo depende de um ambiente que deve ser setado para que todos os módulos sejam importados e que os interpretadores entendam o código que estamos passando.
 
 ## ECMAScript (?)
 Esse nome pode parecer estranho a primeira vista. Oras, nossa aplicação é em JavaScript, o que seria então esse ECMAScript?

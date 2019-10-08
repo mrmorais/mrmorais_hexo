@@ -4,6 +4,9 @@ date: 2016-05-17 22:39:09
 tags:
 ---
 
+# Web Scraping com produtos da Submarino.com
+17 de maio de 2016
+
 ![Logomarca da Submarino](http://1.bp.blogspot.com/-uO60O4C0BTQ/Ue88sjiS3MI/AAAAAAABK2o/baYvdCguuu8/s1600/submarino+logo.jpg)
 
 Olá! Desenvolvi, hoje, um algoritmo muito simplista que tem como funcionalidade realizar Web Scraping em uma página de qualquer produto da empresa Submarino e retornar os atributos daquele produto como objeto.

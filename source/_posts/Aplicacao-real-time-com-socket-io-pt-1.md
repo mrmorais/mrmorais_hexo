@@ -4,6 +4,9 @@ date: 2017-03-22 14:53:39
 tags: [Pig Web Dice, Node.JS, Socket.io]
 ---
 
+# Aplicação real-time com socket.io (parte 1)
+22 de março de 2017
+
 Neste artigo utilizaremos a biblioteca [socket.io](https://socket.io) para desenvolver uma aplicação multiplayer "real-time". A ideia surgiu quando me foi apresentado um jogo de dados chamado: ["Pig Dice"](https://goo.gl/C5iXdo) como atividade de "Linguagem de Programação I". Mas, enquanto para a matéria eu vou desenvolver a solução em C++, aqui vou criar uma versão web com Node.JS.
 
 Basicamente vou utilizar Express (inicialmente), Socket.io (para comunicar o servidor com os jogadores), React JS (para fazer o front end). Perceba que o servidor não vai persistir informações dos jogadores em um banco de dados. A ideia é apenas armazenas os estados em um array de players. Isso significa que no momento em que o servidor descer, todas as informações de score, users e sockets serão perdidas.

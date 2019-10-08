@@ -6,7 +6,7 @@
 title: Maradona Morais
 subtitle: IT student. software developer. musician. trader.
 description: IT student. software developer. musician. trader.
-author: Maradona Morais	
+author: Maradona Morais
 language:
 timezone:
 
@@ -14,7 +14,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://mrmorais.github.io
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :title/
 permalink_defaults:
 
 # Directory
@@ -43,6 +43,15 @@ highlight:
   auto_detect: false
   tab_replace:
 
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -63,9 +72,36 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: cactus-dark
+theme: book
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:
+
+markdown:
+  render:
+    html: true # Doesn't escape HTML content so the tags will appear as html.
+    xhtmlOut: false # Parser will not produce XHTML compliant code.
+    breaks: true # Parser produces `<br>` tags every time there is a line break in the source document.
+    linkify: true # Returns text links as text.
+    typographer: true # Substitution of common typographical elements will take place.
+    quotes: '“”‘’' # "double" will be turned into “single”
+                   # 'single' will be turned into ‘single’
+  plugins:
+    - markdown-it-abbr
+    - markdown-it-container
+    - markdown-it-emoji
+    - markdown-it-footnote
+    - markdown-it-imsize
+  anchors:
+    # Minimum level for ID creation. (Ex. h2 to h6)
+    level: 1
+    # A suffix that is prepended to the number given if the ID is repeated.
+    collisionSuffix: 'v'
+    # If `true`, creates an anchor tag with a permalink besides the heading.
+    permalink: false
+    # Class used for the permalink anchor tag.
+    permalinkClass: header-anchor
+    # The symbol used to make the permalink
+    permalinkSymbol: '# '
