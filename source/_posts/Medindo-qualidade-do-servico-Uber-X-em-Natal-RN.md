@@ -35,4 +35,8 @@ Foi criado um script em Python que a cada 3 minutos faz 86 requisições (uma pa
 
 ## Resultado
 
-O tratamento posterior dos dados que fizemos foi efetuar uma média, por bairro, do tempo de estimativa de espera. Por fim, representamos as médias obtidas em um mapa e chegamos a este resultado:<
+O tratamento posterior dos dados que fizemos foi efetuar uma média, por bairro, do tempo de estimativa de espera. Por fim, representamos as médias obtidas em um mapa e chegamos a este resultado:
+
+![](https://github.com/mrmorais/uber-map-natal/blob/master/imgs/without_lbls.png?raw=true)
+
+Todos os códigos utilizados neste estudo estão disponíveis no meu Github [neste endereço](https://github.com/mrmorais/uber-map-natal).
