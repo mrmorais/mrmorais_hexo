@@ -4,6 +4,10 @@
   - Março
     - [ECMAScript 6 e como usar](/ecmascript-6-e-como-usar)
     - [Aplicação real-time com socket.io (parte 1)](/Aplicacao-real-time-com-socket-io-pt-1)
+  - Junho
+    - [C++eleste - Jogo da cobrinha autônomo](/C-eleste-Jogo-da-cobrinha-autonomo)
+  - Setembro
+    - [Medindo qualidade do serviço Uber X em Natal/RN](/Medindo-qualidade-do-servico-Uber-X-em-Natal-RN)
 - 2016
   - Maio
     - [Scraprice - API de monitoramento de preços](/Scraprice-API-de-monitoramento-de-precos)
