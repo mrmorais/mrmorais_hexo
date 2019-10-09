@@ -74,6 +74,9 @@
 .book-post {
   max-width: 95%;
 
+  font-family: Cambria, Georgia, 'Times New Roman', Times, serif;
+  // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
   .book-post-title {
     font-size: $font-size-32;
   }
@@ -124,8 +127,9 @@
   }
 
   p {
-    font-size: 16px;
+    font-size: 17px;
     margin-bottom: $padding-10;
+    line-height: 1.65em;
   }
 
   hr {
@@ -165,6 +169,7 @@
   li {
     margin-top: .4rem;
     margin-bottom: .4rem;
+    font-size: 17px;
   }
 
   blockquote p:last-child {
