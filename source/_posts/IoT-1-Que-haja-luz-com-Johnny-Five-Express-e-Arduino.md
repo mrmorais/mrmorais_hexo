@@ -121,7 +121,7 @@ Algo interessante para se fazer é testar isso pelo smartphone conectado à rede
 
     iptables -A INPUT -p tcp -i wlan0 --dport 3000 -j ACCEPT
     
-Espero ter contribuído com este tutorial! Em breve trarei mais coisas interessantes. Até mais e **Do Free Code!**
+Espero ter contribuído com este tutorial! Em breve trarei mais coisas interessantes.
 
 [Ver código no GitHub][git]
 

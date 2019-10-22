@@ -7,6 +7,7 @@
 > Este é um blog pessoal sobre tópicos de tecnologia, desenvolvimento de software e outros temas.
 
 ### Últimos artigos
+- [Testes com Consumer-Driven Contracts](/Testes-com-Consumer-Driven-Contracts)
 - [Medindo qualidade do serviço Uber X em Natal/RN](/Medindo-qualidade-do-servico-Uber-X-em-Natal-RN)
 - [C++eleste - Jogo da cobrinha autônomo](/C-eleste-Jogo-da-cobrinha-autonomo)
 - [ECMAScript 6 e como usar](/ecmascript-6-e-como-usar)

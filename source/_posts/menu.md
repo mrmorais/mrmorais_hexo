@@ -1,5 +1,8 @@
 - [Home](/)
 - [Sobre](/about)
+- 2019
+  - Outubro
+    - [Testes com Consumer-Driven Contracts](/Testes-com-Consumer-Driven-Contracts)
 - 2017
   - Março
     - [ECMAScript 6 e como usar](/ecmascript-6-e-como-usar)
