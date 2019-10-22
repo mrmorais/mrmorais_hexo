@@ -1,5 +1,8 @@
 - [Home](/)
 - [Sobre](/about)
+- 2019
+  - Outubro
+    - [(English) The Lazy World of Clojure](/The-Lazy-World-of-Clojure)
 - 2017
   - Março
     - [ECMAScript 6 e como usar](/ecmascript-6-e-como-usar)
