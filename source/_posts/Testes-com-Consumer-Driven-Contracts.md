@@ -24,17 +24,17 @@ Logo, temos dois tipos de aplicações envolvidas:
 
 A relação entre estas aplicações é definida por uma forma de contrato, um documento que especifíca as interações existentes: quais requisições o consumidor faz e quais respostas são esperadas do provedor para essas requisições. Ou seja, o esquema do contrato é definido com base em exemplos positivos.
 
-O consumidor define como espera ser respondido (momento de criação do contrato.) Quando são feitas alterações no código do serviço provedor, o teste de validação informa se o contrato foi quebrado em decorrencia da alteração, interropendo o progresso da build na pipeline de deploy, por exemplo.
+O consumidor define como espera ser respondido (momento de criação do contrato.) Quando são feitas alterações no código do serviço provedor, o teste de validação informa se o contrato foi quebrado em decorrência da alteração, interrompendo o progresso da build na pipeline de deploy, por exemplo.
 
 Esta prática possui benefícios práticos:
 
 * Esconde a implementação: os times não precisam conhecer nenhum trecho de código de um serviço de outro time para entender como a resposta é gerada ou como é esperada, tudo fica a cargo de satisfazer o contrato.
 
-- Cria um elo de confiaça: podem ser feitas alterações no provedor sem medo de que outras aplicações sejam prejudicadas (a seguir veremos que, com uma ferramenta de broker de contratos, o provedor nem mesmo precisa conhecer quais aplicações dependem dele).
+- Cria um elo de confiança: podem ser feitas alterações no provedor sem medo de que outras aplicações sejam prejudicadas (a seguir veremos que, com uma ferramenta de broker de contratos, o provedor nem mesmo precisa conhecer quais aplicações dependem dele).
 
 Certamente um dos maiores benefícios é o desacoplamento entre as aplicações uma vez que as interfaces são mais bem definidas.
 
-Neste artigo irei definir esta prática nos termos do framework [Pact](pact.io), uma ferramenta de *contract tests*; provavelmente a mais utilizada para este fim. O ecosistema de Pact inclui também o [Pact Broker](https://docs.pact.io/pact_broker), aplicação para compartilhamento de contratos e resultados de verificações.
+Neste artigo irei definir esta prática nos termos do framework [Pact](pact.io), uma ferramenta de *contract tests*; provavelmente a mais utilizada para este fim. O ecossistema de Pact inclui também o [Pact Broker](https://docs.pact.io/pact_broker), aplicação para compartilhamento de contratos e resultados de verificações.
 
 Estarei utilizando uma aplicação desenvolvida por mim com base no exemplo do pact-workshop[^repo-pact-workshop] em Javascript, mas Pact possui implementações e guias para diferentes linguagens.
 
@@ -97,7 +97,7 @@ server.post('/checkout', (req, res) => {
 
 ### Testes no lado *Consumer*
 
-O teste está definido utilizando o framework Mocha com Chai. O Pact entra inicialmente como mock do serviço *provider*. É feita a importanção e a definição do Pact em que são especificados nomes, portas e arquivos em que serão realizados outputs de logs e do pacto.
+O teste está definido utilizando o framework Mocha com Chai. O Pact entra inicialmente como mock do serviço *provider*. É feita a importação e a definição do Pact em que são especificados nomes, portas e arquivos em que serão realizados outputs de logs e do pacto.
 
 <center>consumerPact.spec.js</center>
 
