@@ -2,6 +2,7 @@
 - [Sobre](/about)
 - 2019
   - Outubro
+    - [Testes com Consumer-Driven Contracts](/Testes-com-Consumer-Driven-Contracts)
     - [(English) The Lazy World of Clojure](/The-Lazy-World-of-Clojure)
 - 2017
   - Março

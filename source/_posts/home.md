@@ -1,12 +1,13 @@
 # Hello 🤠
 
-<small style="color: #919191;">Mais recentemente atualizado em 23 de outubro de 2019</small>
+<small style="color: #919191;">Mais recentemente atualizado em 24 de outubro de 2019</small>
 
 [💻 GitHub](https://github.com/mrmorais) [📗 Medium](https://medium.com/@mrmorais) [🥚 Twitter](https://twitter.com/maradona_)
 
 > Este é um blog pessoal sobre tópicos de tecnologia, desenvolvimento de software e outros temas.
 
 ### Últimos artigos
+- [Testes com Consumer-Driven Contracts](/Testes-com-Consumer-Driven-Contracts) 24/10/2019
 - [(English) The Lazy World of Clojure](/The-Lazy-World-of-Clojure) 08/10/2019
 - [Medindo qualidade do serviço Uber X em Natal/RN](/Medindo-qualidade-do-servico-Uber-X-em-Natal-RN) 23/09/2017
 - [C++eleste - Jogo da cobrinha autônomo](/C-eleste-Jogo-da-cobrinha-autonomo) 17/06/2017
@@ -30,9 +31,6 @@
         </a>
     </div>
 </div>
-
-
-<!-- ![](/images/kepler-natal-map.png) -->
 
 <hr/>
 
