@@ -40,9 +40,9 @@ Estarei utilizando uma aplicação desenvolvida por mim com base no exemplo do p
 
 ## Funcionamento do Pact
 
-Pact atua como *mock* nos dois lados da interação: para o consumer ele faz o papel do provider e o contrário para o provider. O ponto de partida é a especificação no lado consumer. O Pact intercepta as requisições que iriam para o provider respondendo com o que o consumer define no Pact test como esperado, neste momento os testes unitários do consumer também são realizados para garantir que com a resposta esperada do provider ele saberá operar como esperado também.
+Pact atua como *mock* nos dois lados da interação: para o *consumer* ele faz o papel do *provider* e o contrário para o *provider*. O ponto de partida é a especificação no lado *consumer*. O Pact intercepta as requisições que iriam para o *provider* respondendo com o que o *consumer* define no Pact test como esperado, neste momento os testes unitários do *consumer* também são realizados para garantir que com a resposta esperada do *provider* ele saberá operar como esperado também.
 
-Ao final dos testes no lado consumer, se todos os teste passam, é gerado um arquivo `.json` com um conjunto de interações (especificações de requisição e resposta esperada). Este arquivo é, por assim dizer, o pacto (contrato) do relacionamento, o provider precisará somente dele para validar se está de acordo com as especificações do consumer. O pacto deve ser distribuído para que o provider tenha acesso. Existem várias formas de fazer esta distribuição: transferir via diretório compartilhado, repositório git ou, o mais recomendado, um Pact Broker (que é abordado na sessão [Pact Broker](#pact-broker)).
+Ao final dos testes no lado *consumer*, se todos os teste passam, é gerado um arquivo `.json` com um conjunto de interações (especificações de requisição e resposta esperada). Este arquivo é, por assim dizer, o pacto (contrato) do relacionamento, o *provider* precisará somente dele para validar se está de acordo com as especificações do *consumer*. O pacto deve ser distribuído para que o *provider* tenha acesso. Existem várias formas de fazer esta distribuição: transferir via diretório compartilhado, repositório git ou, o mais recomendado, um Pact Broker (que é abordado na sessão [Pact Broker](#pact-broker)).
 
 A figura abaixo dá uma visão geral do funcionamento do Pact.
 
@@ -53,17 +53,11 @@ A figura abaixo dá uma visão geral do funcionamento do Pact.
 
 ## Aplicação demonstrativa
 
-A aplicação exemplo no lado consumer passa no corpo da requisição uma lista de itens (descrições, preços e quantidades) para o provider, que deve, então, calcular o valor total de uma compra com tais itens.
+A aplicação exemplo no lado *consumer* passa no corpo da requisição uma lista de itens (descrições, preços e quantidades) para o *provider* que, então, calcula o valor total de uma compra com tais itens e define uma porcentagem máxima de desconto aplicável. O *consumer* adiciona uma restrição extra na porcentagem de desconto limitando-o a 15%.
 
-Este é o código-fonte do consumer:
+<center>consumer.js</center>
 
 ```js
-const request = require('superagent')
-
-const API_HOST = process.env.API_HOST || 'http://localhost';
-const API_PORT = process.env.API_PORT || 3000;
-const apiUri = `${API_HOST}:${API_PORT}`;
-
 const checkoutOrder = items => {
     return request
         .post(`${apiUri}/checkout`)
@@ -71,20 +65,39 @@ const checkoutOrder = items => {
             items
         })
         .then( res => {
+            const {totalAmount, maxDescount} = res.body;
+            const descount = maxDescount <= 0.15 ? maxDescount : 0.15;
             return {
-                totalAmount: res.body.totalAmount
+                totalAmount,
+                descount: 0.15,
+                withDescountAmount: (1 - descount) * totalAmount
             };
         })
 };
+```
 
-module.exports = {
-    checkoutOrder
-}
+No lado do provedor o tratamento para a rota de checkout é calcular o valor total da ordem fazendo uma redução no array de itens recebido.
+
+<center>provider.js</center>
+
+```js
+server.post('/checkout', (req, res) => {
+    const items = req.body.items;
+
+    const total = items.reduce((sum, currentItem) => 
+        sum + (currentItem.price * currentItem.quantity)
+    , 0);
+    
+    res.json({
+        totalAmount: total,
+        maxDescount: 0.2
+    });
+})
 ```
 
 ### Testes no lado *Consumer*
 
-O teste vai ser definido utilizando o framework Mocha com Chai. O Pact entra como definição de mock do provider. É feita a importanção e a definição do Pact em que são especificados nomes, portas e arquivos em que serão realizados outputs de logs e do pacto.
+O teste está definido utilizando o framework Mocha com Chai. O Pact entra inicialmente como mock do serviço *provider*. É feita a importanção e a definição do Pact em que são especificados nomes, portas e arquivos em que serão realizados outputs de logs e do pacto.
 
 <center>consumerPact.spec.js</center>
 
@@ -102,62 +115,52 @@ const provider = new Pact({
 });
 ```
 
-No corpo do teste esta definida a interação "a request for total amount" que define o formato da requisição (`withRequest`) e a resposta que o mock criado pelo Pact irá dar ao consumer (`willRespondWith`). Em seguida é feita a validação da resposta, verificando se o `totalAmount` retornado pelo mock é igual a um valor esperado (156.5).
+No corpo do teste esta definida a interação "a request for total amount" que define o formato da requisição (`withRequest`) e a resposta que o mock criado pelo Pact irá dar ao *consumer* (`willRespondWith`). Em seguida é feita a validação da resposta, verificando se o `totalAmount` é igual ao valor esperado (156.5) e se o valor final com desconto calculado pelo *consumer* é também o esperado (133.025).
 
-Neste momento convém testar unitáriamente o próprio consumer. Neste exemplo a função `checkoutOrder` retorna simplesmente o valor obtido do provider mas se houvesse, por exemplo, o cálculo de preço médio dos produtos feito pelo consumer com o retorno do provider teriamos que fazer asserts nesse valor. O motivo é simples, não é interessante gerar um contrato em que a lógica das funcionalidades do consumer não são satisfeitas.
+As validações são feitas sobre os resultados provenientes do *consumer* pois é justamente o que se deseja testar, se o *consumer* consegue prover suas funcionalidades adequadamente com os retornos consistentes vindos do *provider*.
 
 <center>consumerPact.spec.js</center>
 
 ```js
-describe('Consumer Pact', () => {
+describe('and passing a valid items set', ()=> {
     before(() => {
-        return provider.setup();
-    });
-
-    describe('when a call to the Provider is made', () => {
-        describe('and passing a valid items set', ()=> {
-            before(() => {
-                return provider.addInteraction({
-                    uponReceiving: 'a request for total amount',
-                    withRequest: {
-                        method: 'POST',
-                        path: '/checkout',
-                        body: { items },
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    },
-                    willRespondWith: {
-                        status: 200,
-                        headers: {
-                            'Content-type': 'application/json; charset=utf-8',
-                        },
-                        body: {
-                            totalAmount: 156.5
-                        }
-                    }
-                });
-            });
-
-            it('can process the JSON payload from provider', () => {
-                const response = checkoutOrder(items);
-
-                return expect(response).to.eventually.have.property('totalAmount', 156.5)
-            });
-
-            it('should validate and create a contract', () => {
-                return provider.verify();
-            })
+        return provider.addInteraction({
+            uponReceiving: 'a request for total amount',
+            withRequest: {
+                method: 'POST',
+                path: '/checkout',
+                body: { items },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            },
+            willRespondWith: {
+                status: 200,
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8',
+                },
+                body: {
+                    totalAmount: 156.5,
+                    maxDescount: 0.2
+                }
+            }
         });
     });
 
-    after(() => {
-        provider.finalize();
+    it('can process the JSON payload from provider', (done) => {
+        const processedOrder = checkoutOrder(items);
+
+        expect(processedOrder).to.eventually.have.property('totalAmount', 156.5);
+        expect(processedOrder).to.eventually.have.property('withDescountAmount', 133.025).notify(done);
+    });
+
+    it('should validate and create a contract', () => {
+        return provider.verify();
     })
 });
 ```
 
-Quando finalizada a execução do teste, o Pact cria, no diretório definido anteriormente, o arquivo com as especificações. Este arquivo de pacto deve ser distribuído para o provider. Este projeto utiliza [Pactflow](https://pactflow.io/), ferramenta online de Pact Broker para distribuição de pactos. É possível, também, executar Pact Broker em um servidor próprio.
+Quando finalizada a execução dos testes, o Pact cria, no diretório definido anteriormente, o arquivo com as especificações. Este arquivo de pacto deve ser distribuído para o *provider*. Este projeto utiliza [Pactflow](https://pactflow.io/), ferramenta online de Pact Broker para distribuição de pactos. É possível, também, executar Pact Broker em um servidor próprio[^pact-broker].
 
 <center>my_consumer-my_provider.json</center>
 
@@ -204,7 +207,8 @@ Quando finalizada a execução do teste, o Pact cria, no diretório definido ant
           "Content-type": "application/json; charset=utf-8"
         },
         "body": {
-          "totalAmount": 156.5
+          "totalAmount": 156.5,
+          "maxDescount": 0.2
         }
       }
     }
@@ -219,7 +223,51 @@ Quando finalizada a execução do teste, o Pact cria, no diretório definido ant
 
 ### Validação no lado *Provider*
 
-### Pact Broker
+O lado *provider* tem a responsabilidade de estar em conformidade com o contrato. O teste consiste em buscar a distribuição do arquivo de pacto `.json` e validar as interações no ponto de vista do *provider*. A especificação, portanto, deve inicializar uma instância do servidor *provider* e utilizar o `Verifier` do Pact em seguida.
+
+Neste projeto, como está sendo utilizado Pactflow, as configurações incluem `pactBrokerUrl` e o `pactBrokerToken` que são as informações de conexão ao broker. Mas é possível configurar para utilizar o arquivo `.json` informando o caminho para o arquivo localmente. 
+
+<center>providerPact.spec.js</center>
+
+```js
+describe('Provider test', () => {
+    let serverConn;
+    before(() => {
+        serverConn = server.listen(3000, () => {
+            console.log('Provider is running ...');
+        });
+    })
+    describe('Matches \"My consumer\" requirements', () => {
+        it('should validate the contract', () => {
+            return new Verifier().verifyProvider({
+                provider: 'My provider',
+                providerBaseUrl: 'http://localhost:3000',
+                pactBrokerUrl,
+                pactBrokerToken
+            }).then();
+        })
+    });
+
+    after(() => {
+        if (serverConn) serverConn.close();
+    })
+});
+```
+
+Executando os testes é possível saber se, em produção, a aplicação entrará ou não em conflito com o *consumer*. Isto possibilita uma grande liberdade na alteração de como as coisas são feitas internamente e mesmo como os retornos são realizados. Imagine que a função de checkout foi alterada e, por algum engano, o retorno acrescente 5 reais ao montante final. A execução do teste reclamaria que esperava um valor diferente.
+
+```
+ Diff                                           
+ --------------------------------------           
+  {                                             
+ -  "totalAmount": 156.5                        
+ +  "totalAmount": 161.5                        
+  }                                             
+                                                
+ Description of differences                     
+ --------------------------------------         
+ * Expected 156.5 but got 161.5 at $.totalAmount
+```
 
 ## Conteúdos relacionados
 
@@ -228,3 +276,4 @@ Grande parte do conteúdo deste artigo se baseia conceitualmente na publicação
 Imagens e conceitos do framework Pact são do [Pact](pact.io).
 
 [^repo-pact-workshop]: Repositório no Github: [pact-workshop-js](https://github.com/DiUS/pact-workshop-js)
+[^pact-broker]: [Página do Pacto Broker](https://docs.pact.io/pact_broker)
