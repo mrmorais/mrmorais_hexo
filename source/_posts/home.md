@@ -1,8 +1,8 @@
-# Hello 🤠
+# 🤠
 
-<small style="color: #919191;">Mais recentemente atualizado em 24 de outubro de 2019</small>
+<small style="color: #919191;">Mais recentemente atualizado em 03 de março de 2020</small>
 
-[💻 GitHub](https://github.com/mrmorais) [📗 Medium](https://medium.com/@mrmorais) [🥚 Twitter](https://twitter.com/maradona_)
+[💻 GitHub](https://github.com/mrmorais) [📝 Medium](https://medium.com/@mrmorais) [🥚 Twitter](https://twitter.com/maradona_) [💼 Portifólio](/portifolio)<i style="color: red">*</i>
 
 > Este é um blog pessoal sobre tópicos de tecnologia, desenvolvimento de software e outros temas.
 
